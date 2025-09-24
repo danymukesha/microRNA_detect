@@ -6,7 +6,6 @@ APOE is a major genetic factor in Alzheimer’s disease, but most attention focu
 
 We use a single chromosome VCF (chr19 from 1000 Genomes phase 3, ~343 MB compressed), the corresponding chr19 reference FASTA, a GENCODE GTF and miRBase mature sequences. The analysis is targeted (APOE ± neighbors).
 
-
 ## Data sources; exact URLs & citations
 
 I downloaded these publicly available files:
@@ -26,7 +25,6 @@ I downloaded these publicly available files:
 * (Optional) **VEP / variant annotation resources** - if later i want to add Ensembl VEP for coding consequence checks; see Ensembl VEP docs. ([ensembl.org][5])
 
 > These are well-established repositories (1000 Genomes / UCSC / GENCODE / miRBase). I cited/mentioned the dataset pages above and used them to confirm the latest endpoint.
-
 
 ## Software & packages 
 
@@ -56,15 +54,11 @@ Notes:
 * `intervaltree` is pure-Python for interval queries.
 * The pipeline is designed to avoid heavy tools like samtools/BCFtools (other than `tabix`/`bgzip` used for optional indexing), so it runs on modest hardware.
 
-
-
 ## Full reproducible pipeline (download + analysis)
 
 Below I provide (A) a bash script to fetch data, and (B) a single Python script `apoe_mirna_scan.ipynb` which performs the analysis and writes results to CSV. **Copy both files into one folder and run locally.**
 
 > **Important:** I executed downloads before running the whole pipeline. The scripts were complete and tested.
-
-
 
 ### Download `download_data.sh`; download required files (make executable)
 
@@ -75,12 +69,9 @@ chmod +x download_data.sh
 ./download_data.sh
 ```
 
-
-
 ### Run `apoe_mirna_scan.ipyng`; main analysis (Python)
 
 Make sure is saved in the same folder (one directory above `data/`), then run `apoe_mirna_scan.ipyng`.
-
 
 ## How the pipeline works 
 
@@ -94,15 +85,11 @@ Make sure is saved in the same folder (one directory above `data/`), then run `a
 
 **Why this approach is useful:** it’s computationally cheap, uses population variant frequencies to prioritize common vs. rare events, and predicts simple functional consequences (miRNA seed gain/loss) that are experimentally testable.
 
-
-
 ## Computation & how long it takes us to execute
 
 * Downloading the chr19 VCF (\~343 MB compressed) and other files is the single biggest time/cost step. On a home connection (which was sometimes slow for myself) this should take a few minutes to \~30 minutes depending on speed. No paid services needed.
 
 * The Python scan over chr19 VCF restricted to APOE/TOMM40 3′-UTRs will finish in ** 5 minutes** on a modern laptop (2–8 cores, 8–16 GB RAM). Memory use is small because the script processes the VCF record by record.
-
-
 
 ## Our scientific interpretation & validation flow
 
@@ -112,15 +99,11 @@ Make sure is saved in the same folder (one directory above `data/`), then run `a
 
 * **Lab validation** (next step): in vitro luciferase 3′-UTR reporter assays with REF vs ALT 3′-UTRs plus candidate miRNA mimics.
 
-
-
 ## Commercial potential
 
 * **Product idea:** a targeted low-cost variant interpretation service / plugin that flags non-coding regulatory variants (miRNA seed disruptions) in clinically relevant loci, starting with APOE. This can be offered as a research subscription or API for biotech/pharma working on AD biomarkers. Low infrastructure cost (scripts + annotation DB + web UI) and niche differentiation (regulatory miRNA focus) could be competitive.
 
 * **Competitive angle:** Many variant annotation tools emphasize coding and known ClinVar entries. There’s an underserved niche for systematic, population-aware miRNA-seed gain/loss interpretation for key disease loci.
-
-
 
 ## To mention few citations (data pages I used to prepare downloads URLs & build my pipeline)
 
@@ -130,15 +113,11 @@ Make sure is saved in the same folder (one directory above `data/`), then run `a
 * UCSC goldenPath hg19 FASTA downloads (chr19 FASTA). ([hgdownload.soe.ucsc.edu][2])
 * Ensembl VEP tutorial (if we will later want to run richer consequence annotation). ([ensembl.org][5])
 
-
-
 ## Caveats and ethical notes
 
 * This pipeline **predicts** miRNA binding site gain/loss using simple seed matching; this is an *in silico* hypothesis generator, not proof of functional effect. Experimental validation is required.
 
 * Using 1000 Genomes data is allowed for research; we enseure ourself that we follow the dataset usage terms (these are public aggregated genotype calls).
-
-
 
 [1]: https://hgdownload.cse.ucsc.edu/gbdb/hg19/1000Genomes/phase3/ "Index of /gbdb/hg19/1000Genomes/phase3"
 [2]: https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/?utm_source=chatgpt.com "Index of /goldenPath/hg19/bigZips"

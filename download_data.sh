@@ -13,7 +13,7 @@ wget -c "${VCF_URL}.tbi" -O ALL.chr19.phase3.vcf.gz.tbi || true
 
 echo "3) Download chr19 FASTA from UCSC"
 # UCSC chromosomes directory contains chr19.fa.gz; i used chromFa archive, but i can also use per-chrom
-CHR19_URL="https://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr19.fa.gz"
+CHR19_URL="https://hgdownload.cse.ucsc.edu/goldenPath/hg19/chromosomes/chr19.fa.gz" # I used hg19 here because 1000 Genomes phase 3 is natively listed in hg19 coordinates at the UCSC mirror
 wget -c "$CHR19_URL" -O chr19.fa.gz
 gunzip -f chr19.fa.gz
 
