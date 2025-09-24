@@ -1,4 +1,4 @@
-# Detecting potential regulatory microRNA-binding disruptions in the APOE nearby loci using 1000 Genomes allele diversity (chr19)
+# Detecting potential regulatory microRNA-binding disruptions in the APOE or nearby loci using 1000 Genomes allele diversity (chr19)
 
 Do common and rare variants in the 3′-UTR of APOE / nearby genes on chromosome 19 create or disrupt predicted microRNA (miRNA) binding seed matches in human populations (1000 Genomes), and can such predicted disruptions reveal under-explored regulatory variants that could explain population differences in APOE expression or disease risk?
 
