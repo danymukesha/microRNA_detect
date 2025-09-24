@@ -56,7 +56,7 @@ def parse_gtf_three_prime_utrs(gtf_path, genes_of_interest=None):
         for line in fh:
             if line.startswith("#"): continue
             parts = line.split("\t")
-            if len(parts) < 9: continue
+            #if len(parts) < 9: continue
             chrom, src, feature, start, end, score, strand, frame, attr = parts
             if feature != "three_prime_utr": continue
             # parse gene_name
