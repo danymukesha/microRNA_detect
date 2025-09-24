@@ -7,15 +7,15 @@ APOE is a major genetic factor in Alzheimer’s disease, but most attention focu
 We use a single chromosome VCF (chr19 from 1000 Genomes phase 3, ~343 MB compressed), the corresponding chr19 reference FASTA, a GENCODE GTF and miRBase mature sequences. The analysis is targeted (APOE ± neighbors).
 
 
-## Data sources — exact URLs & citations
+## Data sources; exact URLs & citations
 
 I downloaded these publicly available files:
 
 * **1000 Genomes Phase 3, chr19 VCF (genotypes)**
   `https://hgdownload.cse.ucsc.edu/gbdb/hg19/1000Genomes/phase3/ALL.chr19.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz` (this is the official per-chromosome VCF at UCSC/IGSR). ([hgdownload.cse.ucsc.edu][1])
 
-* **Human reference (hg19) — chromosome 19 FASTA**
-  (UCSC goldenPath chromFa directory has per-chr FASTA). Example base directory: `https://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/` — you can fetch `chr19.fa.gz` from the chromosomes directory. ([hgdownload.soe.ucsc.edu][2])
+* **Human reference (hg19); chromosome 19 FASTA**
+  (UCSC goldenPath chromFa directory has per-chr FASTA). Example base directory: `https://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/`; I fetched `chr19.fa.gz` from the chromosomes directory. ([hgdownload.soe.ucsc.edu][2])
 
 * **GENCODE v19 annotation (GTF, hg19)**
   `ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz` (GENCODE v19 is commonly used for hg19). ([ftp.ebi.ac.uk][3])
@@ -23,11 +23,10 @@ I downloaded these publicly available files:
 * **miRBase mature microRNA sequences (mature.fa.gz)**
   `https://mirbase.org/ftp/CURRENT/mature.fa.gz` (contains mature miRNA sequences; we extract human miRNAs). ([nf-co.re][4])
 
-* (Optional) **VEP / variant annotation resources** — if you later want to add Ensembl VEP for coding consequence checks; see Ensembl VEP docs. ([ensembl.org][5])
+* (Optional) **VEP / variant annotation resources** - if later i want to add Ensembl VEP for coding consequence checks; see Ensembl VEP docs. ([ensembl.org][5])
 
 > These are well-established repositories (1000 Genomes / UCSC / GENCODE / miRBase). I cited/mentioned the dataset pages above and used them to confirm the latest endpoint.
 
----
 
 ## Software & packages 
 
@@ -38,7 +37,7 @@ System commands (one-time):
 sudo apt update
 sudo apt install -y tabix bgzip wget gzip
 
-# (optional but recommended) install bedtools if you later want intersections:
+# (optional but recommended) install bedtools if later i want intersections:
 sudo apt install -y bedtools
 ```
 
@@ -57,7 +56,7 @@ Notes:
 * `intervaltree` is pure-Python for interval queries.
 * The pipeline is designed to avoid heavy tools like samtools/BCFtools (other than `tabix`/`bgzip` used for optional indexing), so it runs on modest hardware.
 
----
+
 
 ## Full reproducible pipeline (download + analysis)
 
@@ -65,9 +64,9 @@ Below I provide (A) a bash script to fetch data, and (B) a single Python script 
 
 > **Important:** I executed downloads before running the whole pipeline. The scripts were complete and tested.
 
----
 
-### Download `download_data.sh` — download required files (make executable)
+
+### Download `download_data.sh`; download required files (make executable)
 
 Make executable and run:
 
@@ -76,16 +75,16 @@ chmod +x download_data.sh
 ./download_data.sh
 ```
 
----
 
-### Run `apoe_mirna_scan.py` — main analysis (Python)
 
-Make sure is saved in the same folder (one directory above `data/`), then run `python apoe_mirna_scan.py`.
+### Run `apoe_mirna_scan.ipyng`; main analysis (Python)
+
+Make sure is saved in the same folder (one directory above `data/`), then run `apoe_mirna_scan.ipyng`.
 
 
 ## How the pipeline works 
 
-1. **Download**: We fetch the precomputed 1000 Genomes *per-chromosome* VCF for chr19 (so you don’t need entire genome files). That file contains genotype calls across many individuals and includes allele frequency info in INFO fields.
+1. **Download**: We fetch the precomputed 1000 Genomes *per-chromosome* VCF for chr19 (so I didn't need entire genome files sofar). That file contains genotype calls across many individuals and includes allele frequency info in INFO fields.
 
 2. **Annotate 3′UTRs**: We extract 3′-UTR coordinates for **APOE** and **TOMM40** from the GENCODE v19 annotation (hg19). We then build a small interval tree for fast intersection.
 
@@ -95,7 +94,7 @@ Make sure is saved in the same folder (one directory above `data/`), then run `p
 
 **Why this approach is useful:** it’s computationally cheap, uses population variant frequencies to prioritize common vs. rare events, and predicts simple functional consequences (miRNA seed gain/loss) that are experimentally testable.
 
----
+
 
 ## Computation & how long it takes us to execute
 
@@ -103,7 +102,7 @@ Make sure is saved in the same folder (one directory above `data/`), then run `p
 
 * The Python scan over chr19 VCF restricted to APOE/TOMM40 3′-UTRs will finish in ** 5 minutes** on a modern laptop (2–8 cores, 8–16 GB RAM). Memory use is small because the script processes the VCF record by record.
 
----
+
 
 ## Our scientific interpretation & validation flow
 
@@ -113,7 +112,7 @@ Make sure is saved in the same folder (one directory above `data/`), then run `p
 
 * **Lab validation** (next step): in vitro luciferase 3′-UTR reporter assays with REF vs ALT 3′-UTRs plus candidate miRNA mimics.
 
----
+
 
 ## Commercial potential
 
@@ -121,7 +120,7 @@ Make sure is saved in the same folder (one directory above `data/`), then run `p
 
 * **Competitive angle:** Many variant annotation tools emphasize coding and known ClinVar entries. There’s an underserved niche for systematic, population-aware miRNA-seed gain/loss interpretation for key disease loci.
 
----
+
 
 ## To mention few citations (data pages I used to prepare downloads URLs & build my pipeline)
 
@@ -129,17 +128,17 @@ Make sure is saved in the same folder (one directory above `data/`), then run `p
 * miRBase mature.fa (mature microRNA sequences). ([nf-co.re][4])
 * GENCODE release 19 (gencode.v19.annotation.gtf for hg19). ([ftp.ebi.ac.uk][3])
 * UCSC goldenPath hg19 FASTA downloads (chr19 FASTA). ([hgdownload.soe.ucsc.edu][2])
-* Ensembl VEP tutorial (if you later want to run richer consequence annotation). ([ensembl.org][5])
+* Ensembl VEP tutorial (if we will later want to run richer consequence annotation). ([ensembl.org][5])
 
----
+
 
 ## Caveats and ethical notes
 
 * This pipeline **predicts** miRNA binding site gain/loss using simple seed matching; this is an *in silico* hypothesis generator, not proof of functional effect. Experimental validation is required.
 
-* Using 1000 Genomes data is allowed for research; ensure you follow the dataset usage terms (these are public aggregated genotype calls).
+* Using 1000 Genomes data is allowed for research; we enseure ourself that we follow the dataset usage terms (these are public aggregated genotype calls).
 
----
+
 
 [1]: https://hgdownload.cse.ucsc.edu/gbdb/hg19/1000Genomes/phase3/ "Index of /gbdb/hg19/1000Genomes/phase3"
 [2]: https://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/?utm_source=chatgpt.com "Index of /goldenPath/hg19/bigZips"
