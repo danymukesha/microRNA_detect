@@ -19,7 +19,8 @@ gunzip -f chr19.fa.gz
 
 echo "4) Download GENCODE v19 GTF (annotation for hg19)"
 #GTF_URL="ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz"
-GTF_URL="https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz"
+#GTF_URL="https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_19/gencode.v19.annotation.gtf.gz"
+GTF_URL="https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_49/gencode.v49.chr_patch_hapl_scaff.annotation.gtf.gz"
 wget -c "$GTF_URL" -O gencode.v19.annotation.gtf.gz
 gunzip -f gencode.v19.annotation.gtf.gz
 
